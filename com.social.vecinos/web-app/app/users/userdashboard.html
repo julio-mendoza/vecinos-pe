@@ -1,0 +1,102 @@
+<div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#/users/requests"
+            role="tab" data-toggle="tab">Solicitudes</a></li>
+        <li role="presentation"><a href="#/users/enabled" role="tab"
+            data-toggle="tab">Usuarios Habilitados</a></li>
+        <li role="presentation"><a href="#/users/disabled" role="tab"
+            data-toggle="tab">Usuarios Inhabilitados</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="requests"
+            style="padding: 10px" ng-controller="UserRequestListController">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-sm-8">
+                        <h3 class="panel-title">Lista de Solicitudes</h3>
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <button type="button" class="btn btn-default btn-sm"
+                            ng-click="retrieveData(currentPage.pageNumber, true)">
+                            <span class="glyphicon glyphicon-refresh"></span> Actualizar
+                        </button>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Fecha</th>
+                                    <th>Usuario</th>
+                                    <th>Apellidos</th>
+                                    <th>Nombres</th>
+                                    <th>Correo Electrónico</th>
+                                    <th>Aprobado</th>
+                                    <th>Creado</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="request in currentPage.data">
+                                    <td>{{request.id}}</td>
+                                    <td>{{request.requestDate}}</td>
+                                    <td>{{request.userName}}</td>
+                                    <td>{{request.lastName}}</td>
+                                    <td>{{request.firstName}}</td>
+                                    <td>{{request.emailAddress}}</td>
+                                    <td>{{request.approved}}</td>
+                                    <td>{{request.created}}</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-xs" type="button"
+                                            ng-show="!request.approved && !request.created"
+                                            ng-click="approveRequest(request)">
+                                            <span class="glyphicon glyphicon-ok"></span> Aprobar
+                                        </button>
+                                        <button class="btn btn-danger btn-xs" type="button"
+                                            ng-show="!request.approved && !request.created"
+                                            ng-click="denyRequest(request)">
+                                            <span class="glyphicon glyphicon-remove"></span> Denegar
+                                        </button>
+                                        <button class="btn btn-primary btn-xs" type="button"
+                                            ng-show="request.approved && !request.created"
+                                            ng-click="createUser(request)">Crear Usuario</button>
+                                        <button class="btn btn-danger btn-xs" type="button"
+                                            ng-show="request.approved && !request.created"
+                                            ng-click="deleteRequest(request)">Eliminar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav ng-show="requestsPages.pagesCount > 0">
+                            <ul class="pagination">
+                                <li class="disabled"><a href="#" ng-click="demo(1)"><span aria-hidden="true" >&laquo;</span>
+                                        <span class="sr-only">Primero</span></a></li>
+                                        
+                                        
+                                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#"><span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Último</span></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="/users/enabled">
+            <div>Usuarios Activos</div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="/users/disabled">
+            <div>Usuarios en Baja</div>
+        </div>
+    </div>
+</div>
